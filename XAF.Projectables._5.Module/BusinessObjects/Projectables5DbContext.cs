@@ -5,6 +5,7 @@ using DevExpress.Persistent.BaseImpl.EF.PermissionPolicy;
 using DevExpress.Persistent.BaseImpl.EF;
 using DevExpress.ExpressApp.Design;
 using DevExpress.ExpressApp.EFCore.DesignTime;
+using Microsoft.Extensions.Logging;
 
 namespace XAF.Projectables._5.Module.BusinessObjects;
 
@@ -31,7 +32,20 @@ public class Projectables5DesignTimeDbContextFactory : IDesignTimeDbContextFacto
 	}
 }
 [TypesInfoInitializer(typeof(Projectables5ContextInitializer))]
-public class Projectables5EFCoreDbContext : DbContext {
+public class Projectables5EFCoreDbContext : DbContext
+{
+	public static bool PerformLogging;
+	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+	{
+		optionsBuilder.UseProjectables();
+		
+		optionsBuilder.LogTo(s =>
+		{
+			if (PerformLogging)
+				Console.WriteLine(s);
+		}, LogLevel.Information);
+	}
+
 	public Projectables5EFCoreDbContext(DbContextOptions<Projectables5EFCoreDbContext> options) : base(options) {
 	}
 	//public DbSet<ModuleInfo> ModulesInfo { get; set; }

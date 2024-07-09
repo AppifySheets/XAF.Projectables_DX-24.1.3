@@ -29,5 +29,7 @@
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.3" />
     <PackageReference Include="Azure.Identity" Version="1.11.4" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.34.0" />
+    <PackageReference Include="EntityFrameworkCore.Projectables" Version="*" />
+    
   </ItemGroup>
 </Project>
